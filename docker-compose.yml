@@ -23,7 +23,7 @@ services:
     environment:
       POSTGRES_USER: ${USERNAME}
       POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_DB: ${DATABASE}
+      DATABASE: ${DATABASE}
     volumes:
       - data:/var/lib/postgresql/data
     ports:
