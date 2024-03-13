@@ -2,17 +2,13 @@ version: "3.9"
 
 services:
   back:
-    build:
-      context: ./back
-      dockerfile: Dockerfile.back
+    image: eugenenumart/admin-house-back:latest
     expose:
       - 3000
     command: "npm run start"
 
   front:
-    build:
-      context: ./front
-      dockerfile: Dockerfile.front
+    image: eugenenumart/admin-house-front:latest
     expose:
       - 8080
     command: "npm run start"
@@ -35,8 +31,8 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
       PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
-    expose:
-      - 5050
+    ports:
+      - 5050:5050
     depends_on:
       - postgres
 
