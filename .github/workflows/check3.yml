@@ -4,35 +4,38 @@ on: push
 jobs:
   job-back-lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["18.13.0", "20.9.0"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Get to backend directory
         run: cd back
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
       - name: Install deps
         run: npm install
       - name: Lint
-        uses: npm run lint
+        run: npm run lint
   job-back-test:
     needs: [job-back-lint]
     strategy:
       matrix:
-        version: [18,20]
+        node: ["18.13.0", "20.9.0"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.version }}
+          node-version: ${{ matrix.node }}
       - name: Get to backend directory
         run: cd back
       - name: Install deps
         run: npm install
       - name: Test
-        uses: npm run test
-  job-back-secret:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print secret
-        run: echo 'use secrets'
+        run: npm run test
