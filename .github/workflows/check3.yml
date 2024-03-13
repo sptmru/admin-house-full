@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["18.13.0", "20.9.0"]
+        node: ["20.9.0"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
     needs: [job-back-lint]
     strategy:
       matrix:
-        node: ["18.13.0", "20.9.0"]
+        node: ["20.9.0"]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,6 +32,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Install deps
-        run: cd back &&& npm install
+        run: cd back && npm install
       - name: Test
         run: cd back && npm run test
