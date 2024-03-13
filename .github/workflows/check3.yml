@@ -10,16 +10,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Get to backend directory
-        run: cd back
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
       - name: Install deps
-        run: npm install
+        run: cd back && npm install
       - name: Lint
-        run: npm run lint
+        run: cd back && npm run lint
   job-back-test:
     needs: [job-back-lint]
     strategy:
@@ -33,9 +31,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - name: Get to backend directory
-        run: cd back
       - name: Install deps
-        run: npm install
+        run: cd back &&& npm install
       - name: Test
-        run: npm run test
+        run: cd back && npm run test
