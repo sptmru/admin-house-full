@@ -7,8 +7,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get to backend directory
+        run: cd back
       - name: Install deps
-        run: npm ci
+        run: npm install
       - name: Lint
         uses: npm run lint
   job-back-test:
@@ -23,8 +25,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.version }}
+      - name: Get to backend directory
+        run: cd back
       - name: Install deps
-        run: npm ci
+        run: npm install
       - name: Test
         uses: npm run test
   job-back-secret:
