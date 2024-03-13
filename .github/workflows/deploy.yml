@@ -1,10 +1,12 @@
-name: Build
+name: Deploy
 on:
-  push:
+  workflow_run:
+    workflows: ["Build"]
     branches: [main]
+    types:
+      - completed
 jobs:
   deploy:
-    needs: [build-backend, build-frontend]
     runs-on: ubuntu-latest
     steps:
       - name: install ssh keys
